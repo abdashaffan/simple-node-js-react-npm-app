@@ -22,7 +22,9 @@ pipeline {
         }
         stage('Build') {
             steps {
+                script {
                     build()
+                }
             }
         }
         stage('Test') {
@@ -35,10 +37,8 @@ pipeline {
         stage('Deliver') { 
             steps {
                 script {
-                    // sh './jenkins/scripts/deliver.sh' 
                     deliver('./jenkins/scripts/deliver.sh')
                     input message: 'Finished using the web site? (Click "Proceed" to continue)' 
-                    // sh './jenkins/scripts/kill.sh'
                     terminate('./jenkins/scripts/kill.sh') 
                 }
             }
