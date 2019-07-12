@@ -1,19 +1,23 @@
 @Library('nodejs-library') _
 
 pipeline {
-    agent {
-        label 'node'
-    }
+    agent none
     environment { 
         CI = 'true'
     }
     stages {
         stage('check location') {
+            agent {
+                label 'build'
+            }
             steps {
                 sh 'pwd'
             }
         }
         stage('check version') {
+            agent {
+                label 'build'
+            }
             steps {
                 script {
                     version()
@@ -21,6 +25,9 @@ pipeline {
             }
         }
         stage('Build') {
+            agent {
+                label 'build'
+            }
             steps {
                 script {
                     build()
@@ -28,13 +35,19 @@ pipeline {
             }
         }
         stage('Test') {
+            agent {
+                label 'test'
+            }
             steps {
                 script {
                     test('./jenkins/scripts/test.sh')
                 }
             }
         }
-        stage('Deliver') { 
+        stage('Deliver') {
+            agent {
+                label 'test'
+            }
             steps {
                 script {
                     // sh './jenkins/scripts/deliver.sh' 
