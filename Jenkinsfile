@@ -1,3 +1,5 @@
+@Library('nodejs-library') _
+
 pipeline {
     agent {
         label 'node'
@@ -6,9 +8,17 @@ pipeline {
         CI = 'true'
     }
     stages {
-        stage('TEST') {
+        stage('check location') {
             steps {
                 sh 'pwd'
+            }
+        }
+        stage('check version') {
+            steps {
+                script {
+                    def checker = new version()
+                    checker.check_version()
+                }
             }
         }
         stage('Build') {
