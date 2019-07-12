@@ -22,21 +22,27 @@ pipeline {
         }
         stage('Build') {
             steps {
-                build()
+                script {
+                    build()
+                }
             }
         }
         stage('Test') {
             steps {
-                test('./jenkins/scripts/test.sh')
+                script {
+                    test('./jenkins/scripts/test.sh')
+                }
             }
         }
         stage('Deliver') { 
             steps {
-                // sh './jenkins/scripts/deliver.sh' 
-                deliver('./jenkins/scripts/deliver.sh')
-                input message: 'Finished using the web site? (Click "Proceed" to continue)' 
-                // sh './jenkins/scripts/kill.sh'
-                terminate('./jenkins/scripts/kill.sh') 
+                script {
+                    // sh './jenkins/scripts/deliver.sh' 
+                    deliver('./jenkins/scripts/deliver.sh')
+                    input message: 'Finished using the web site? (Click "Proceed" to continue)' 
+                    // sh './jenkins/scripts/kill.sh'
+                    terminate('./jenkins/scripts/kill.sh') 
+                }
             }
         }
     }
