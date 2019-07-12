@@ -20,25 +20,19 @@ pipeline {
         }
         stage('Build') {
             steps {
-                script {
-                    build()
-                }
+                build()
             }
         }
         stage('Test') {
             steps {
-                script {
-                    test('./jenkins/scripts/test.sh')
-                }
+                test('./jenkins/scripts/test.sh')
             }
         }
         stage('Deliver') { 
             steps {
-                script {
-                    deliver('./jenkins/scripts/deliver.sh')
-                    input message: 'Finished using the web site? (Click "Proceed" to continue)' 
-                    terminate('./jenkins/scripts/kill.sh') 
-                }
+                deliver('./jenkins/scripts/deliver.sh')
+                input message: 'Finished using the web site? (Click "Proceed" to continue)' 
+                terminate('./jenkins/scripts/kill.sh') 
             }
         }
     }
