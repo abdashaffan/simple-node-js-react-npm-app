@@ -16,8 +16,7 @@ pipeline {
         stage('check version') {
             steps {
                 script {
-                    def checker = new version()
-                    checker.check_version()
+                    version()
                 }
             }
         }
