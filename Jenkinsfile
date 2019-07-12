@@ -22,9 +22,7 @@ pipeline {
         }
         stage('Build') {
             steps {
-                script {
                     build()
-                }
             }
         }
         stage('Test') {
