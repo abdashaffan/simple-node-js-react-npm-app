@@ -15,9 +15,7 @@ pipeline {
         }
         stage('check version') {
             steps {
-                script {
-                    version()
-                }
+                version()
             }
         }
         stage('Build') {
